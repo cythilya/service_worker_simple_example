@@ -1,0 +1,53 @@
+<html>
+<head></head>
+<body>
+<script src="/javascripts/jquery-1.8.2.min.js"></script>
+<script>
+function sendMessage(message) {
+  return new Promise(function(resolve, reject) {
+     var messageChannel = new MessageChannel();
+     messageChannel.port1.onmessage = function(event) {
+       if (event.data.error) {
+         reject(event.data.error);
+       } else {
+         resolve(event.data);
+       }
+     };
+    navigator.serviceWorker.controller.postMessage(message, [messageChannel.port2]);
+  });
+}
+
+if('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/serviceWorker.js')
+  .then(function(reg) {
+    console.log('Registration succeeded. Scope is ' + reg.scope); // registration worked
+  }).catch(function(error) {
+    console.log('Registration failed with ' + error); // registration failed
+  });
+
+  navigator.serviceWorker.addEventListener('message', function(event) {
+    console.log(event.data);
+  });
+}
+
+function getQueryData() {
+  $.ajax({
+    url: '/queryData',
+    type: 'post',
+    data: {},
+    //dataType: 'json',
+    error: function (xhr) {
+      //console.log(xhr);
+    },
+    success: function (result) {
+      console.log(result);
+    }
+  });
+}
+
+sendMessage('Hello World!');
+getQueryData();
+</script>
+</script>
+</body>
+</html>

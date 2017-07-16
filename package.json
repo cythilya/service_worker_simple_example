@@ -1,0 +1,15 @@
+{
+  "name": "service_worker_simple_example",
+  "version": "0.0.0",
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "body-parser": "~1.15.2",
+    "express": "~4.14.0",
+    "ejs": "^2.5.5",
+    "http": "0.0.0",
+    "request": "^2.79.0",
+    "serve-favicon": "~2.3.0"
+  }
+}
