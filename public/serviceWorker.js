@@ -20,21 +20,22 @@ this.addEventListener('fetch', function(event) {
   event.respondWith(
     caches.match(event.request).then(function(response) {
       if (response) {
-        return new Response('<p>Hello from your friendly neighbourhood service worker!</p>', {
-          headers: { 'Content-Type': 'text/html' }
-        });
-        //console.log('Found response in cache:', response);
-        //return response;
+        // return new Response('<p>Hello from your friendly neighbourhood service worker!</p>', {
+        //   headers: { 'Content-Type': 'text/html' }
+        // });
+        console.log('Found response in cache:', response);
+        return response;
       } else {
         console.log('No response found in cache. About to fetch from network...');
       }
 
       return fetch(event.request).then(function(response) {
         console.log('Response from network is:', response);
-        return caches.open('v1').then(function(cache) {
-          cache.put(event.request, response.clone());
-          return response;
-        });
+        // return caches.open('v1').then(function(cache) {
+        //   cache.put(event.request, response.clone());
+        //   return response;
+        // });
+        return response;
       }).catch(function(error) {
         console.error('Fetching failed:', error);
 
@@ -55,4 +56,3 @@ this.onpush = function(event) {
   // From here we can write the data to IndexedDB, send it to any open
   // windows, display a notification, etc.
 }
-
