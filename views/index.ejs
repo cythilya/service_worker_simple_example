@@ -32,6 +32,15 @@ if('serviceWorker' in navigator) {
   });
 }
 
+navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
+  console.log('Service worker ready.');
+  // serviceWorkerRegistration.pushManager.subscribe()
+  // .then(function(subscription) {
+  //   console.log('send subscription to server');
+  //   return sendSubscriptionToServer(subscription);
+  // })
+});
+
 function getQueryData() {
   $.ajax({
     url: '/queryData',
